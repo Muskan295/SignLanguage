@@ -44,7 +44,10 @@ function Login() {
       id: account.id,
       email: account.email,
       name: account.fullName,
+      age: account.age || 0,
       userType: account.userType,
+      learningScore: account.learningScore || 0,
+      modulesCompleted: account.modulesCompleted || 0,
       isLoggedIn: true,
       loginTime: new Date().toISOString()
     }
