@@ -99,10 +99,18 @@ function Navbar() {
 
                 {/* Dropdown Menu */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
-                    <div className="px-4 py-2 border-b border-slate-100">
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
+                    <div className="px-4 py-3 border-b border-slate-100">
                       <p className="text-sm font-semibold text-slate-900">{user.name}</p>
                       <p className="text-xs text-slate-500">{user.email}</p>
+                      {user.userType && (
+                        <div className="mt-2 inline-flex items-center gap-1.5 bg-brand-50 text-brand-700 text-xs font-medium px-2.5 py-1 rounded-full">
+                          <span className="w-1.5 h-1.5 bg-brand-500 rounded-full"></span>
+                          <span className="capitalize">
+                            {user.userType === 'visionLoss' ? 'Vision Loss' : user.userType}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <button
                       onClick={handleLogout}

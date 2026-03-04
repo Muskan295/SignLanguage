@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import AlphabetCard from '../components/AlphabetCard'
@@ -8,6 +8,21 @@ import { alphabetData } from '../data/alphabet'
 import { wordsData } from '../data/words'
 
 function Home() {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userData = localStorage.getItem('user')
+    if (userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, [])
+
+  const getUserTypeLabel = (userType) => {
+    if (userType === 'visionLoss') return 'Vision Loss'
+    return userType.charAt(0).toUpperCase() + userType.slice(1)
+  }
+
   return (
     <div className="space-y-8">
       {/* Hero Section */}
@@ -21,9 +36,26 @@ function Home() {
                 Interactive Learning
               </div>
               <h1 className="text-3xl font-extrabold text-slate-900 mb-3 leading-tight tracking-tight">
-                Welcome to<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">SignLingo</span>
+                {user ? (
+                  <>
+                    Welcome back,<br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">{user.name.split(' ')[0]}!</span>
+                  </>
+                ) : (
+                  <>
+                    Welcome to<br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">SignLingo</span>
+                  </>
+                )}
               </h1>
+              {user && user.userType && (
+                <div className="mb-3 inline-flex items-center gap-2 bg-gradient-to-r from-brand-50 to-brand-100 text-brand-700 text-sm font-medium px-3 py-1.5 rounded-lg border border-brand-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                  <span>User Type: <strong>{getUserTypeLabel(user.userType)}</strong></span>
+                </div>
+              )}
               <p className="text-slate-500 text-sm leading-relaxed">
                 Master sign language through interactive lessons, visual alphabet cards, and engaging quizzes.
               </p>
