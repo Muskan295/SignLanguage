@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import Alphabet from './pages/Alphabet'
 import Words from './pages/Words'
 import Quiz from './pages/Quiz'
+import Login from './pages/Login'
+import SignIn from './pages/SignIn'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/alphabet" element={<Alphabet />} />
           <Route path="/words" element={<Words />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </main>
     </div>

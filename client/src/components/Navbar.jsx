@@ -1,9 +1,37 @@
-import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [user, setUser] = useState(null)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userData = localStorage.getItem('user')
+    if (userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, [location])
+
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    setUser(null)
+    setDropdownOpen(false)
+    navigate('/')
+    window.location.reload()
+  }
+
+  const getInitials = (name) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2)
+  }
 
   const isActive = (path) => location.pathname === path
 
@@ -51,6 +79,59 @@ function Navbar() {
               <span className="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
               <span>Online</span>
             </div>
+
+            {/* Auth Section */}
+            {user ? (
+              // Logged in - show user dropdown
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 text-white hover:shadow-md transition-shadow border-none cursor-pointer font-semibold text-sm"
+                >
+                  <div className="w-6 h-6 bg-white text-brand-600 rounded-full flex items-center justify-center text-xs font-bold">
+                    {getInitials(user.name)}
+                  </div>
+                  <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
+                  <svg className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
+                    <div className="px-4 py-2 border-b border-slate-100">
+                      <p className="text-sm font-semibold text-slate-900">{user.name}</p>
+                      <p className="text-xs text-slate-500">{user.email}</p>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer font-medium"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              // Not logged in - show login/signin buttons
+              <div className="hidden sm:flex items-center space-x-2">
+                <Link
+                  to="/login"
+                  className="px-4 py-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 no-underline"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signin"
+                  className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-sm font-semibold hover:shadow-md transition-shadow no-underline"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden p-2 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors border-none bg-transparent cursor-pointer"
@@ -83,6 +164,36 @@ function Navbar() {
                 {label}
               </Link>
             ))}
+            {/* Mobile Auth Links */}
+            {!user && (
+              <>
+                <Link
+                  to="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 rounded-lg text-sm font-medium text-brand-600 hover:bg-brand-50 transition-colors no-underline"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signin"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-brand-500 to-brand-600 hover:shadow-md transition-shadow no-underline"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+            {user && (
+              <button
+                onClick={() => {
+                  handleLogout()
+                  setMobileOpen(false)
+                }}
+                className="w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer"
+              >
+                Logout
+              </button>
+            )}
           </div>
         )}
       </div>
