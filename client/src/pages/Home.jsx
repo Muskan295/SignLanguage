@@ -1,38 +1,74 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function Home() {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userData = localStorage.getItem('user')
+    if (userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, [])
+
+  const getUserTypeLabel = (userType) => {
+    if (userType === 'visionLoss') return 'Vision Loss'
+    return userType.charAt(0).toUpperCase() + userType.slice(1)
+  }
+
   return (
     <div className="space-y-4">
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-2 lg:gap-0 py-2 relative">
-        {/* Decorative elements */}
-        <div className="absolute top-10 left-10 text-brand-300 text-xl">✦</div>
-        <div className="absolute top-20 right-1/3 text-brand-300 text-sm">✦</div>
-        <div className="absolute bottom-10 left-20 text-brand-200 text-lg">✦</div>
-        
-        {/* Left Content */}
-        <div className="flex-1 max-w-xl">
-          {/* <span className="text-brand-500 font-bold text-3xl lg:text-4xl">Learn</span> */}
-          <h1 className="text-5xl lg:text-6xl font-bold text-slate-800 leading-tight">
-            Talk with Your Hands. Connect with Your Heart.
-          </h1>
-          <p className="text-slate-500 text-lg my-6">
-            Interactive lessons, quizzes & real practice
-          </p>
-          <div className="flex gap-4">
-            <Link
-              to="/alphabet"
-              className="inline-flex items-center px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 no-underline"
-            >
-              Start Learning
-            </Link>
-            <Link
-              to="/alphabet"
-              className="inline-flex items-center px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 no-underline"
-            >
-              Resume
-            </Link>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Welcome Card */}
+        <div className="lg:col-span-4">
+          <div className="bg-white rounded-2xl shadow-card p-8 h-full flex flex-col justify-center border border-slate-100">
+            <div className="mb-6">
+              <div className="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+                <span className="w-1.5 h-1.5 bg-brand-500 rounded-full"></span>
+                Interactive Learning
+              </div>
+              <h1 className="text-3xl font-extrabold text-slate-900 mb-3 leading-tight tracking-tight">
+                {user ? (
+                  <>
+                    Welcome back,<br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">{user.name.split(' ')[0]}!</span>
+                  </>
+                ) : (
+                  <>
+                    Welcome to<br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">SignLingo</span>
+                  </>
+                )}
+              </h1>
+              {user && user.userType && (
+                <div className="mb-3 inline-flex items-center gap-2 bg-gradient-to-r from-brand-50 to-brand-100 text-brand-700 text-sm font-medium px-3 py-1.5 rounded-lg border border-brand-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                  <span>User Type: <strong>{getUserTypeLabel(user.userType)}</strong></span>
+                </div>
+              )}
+              <p className="text-slate-500 text-sm leading-relaxed">
+                Master sign language through interactive lessons, visual alphabet cards, and engaging quizzes.
+              </p>
+            </div>
+            <div className="space-y-3">
+              <Button to="/alphabet" variant="primary" icon="🤟">Learn Alphabet</Button>
+              <Button to="/words" variant="secondary" icon="📝">Learn Words</Button>
+              <Button to="/quiz" variant="accent" icon="🎯">Start Quiz</Button>
+            </div>
+            <div className="mt-6 pt-5 border-t border-slate-100 flex items-center gap-2">
+              <div className="flex -space-x-2">
+                <div className="w-6 h-6 rounded-full bg-brand-200 border-2 border-white"></div>
+                <div className="w-6 h-6 rounded-full bg-brand-300 border-2 border-white"></div>
+                <div className="w-6 h-6 rounded-full bg-brand-400 border-2 border-white"></div>
+              </div>
+              <span className="text-xs text-slate-400">
+                Powered by <strong className="text-slate-600">Node.js & Express</strong>
+              </span>
+            </div>
           </div>
         </div>
 

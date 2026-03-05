@@ -87,61 +87,18 @@ function Navbar() {
 
                 {/* Dropdown Menu */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50">
-                    {/* Profile Header */}
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
                     <div className="px-4 py-3 border-b border-slate-100">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-brand-500 to-brand-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
-                          {getInitials(user.name)}
+                      <p className="text-sm font-semibold text-slate-900">{user.name}</p>
+                      <p className="text-xs text-slate-500">{user.email}</p>
+                      {user.userType && (
+                        <div className="mt-2 inline-flex items-center gap-1.5 bg-brand-50 text-brand-700 text-xs font-medium px-2.5 py-1 rounded-full">
+                          <span className="w-1.5 h-1.5 bg-brand-500 rounded-full"></span>
+                          <span className="capitalize">
+                            {user.userType === 'visionLoss' ? 'Vision Loss' : user.userType}
+                          </span>
                         </div>
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900">{user.name}</p>
-                          <p className="text-xs text-slate-500">{user.email}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Profile Details */}
-                    <div className="px-4 py-3 space-y-2.5 border-b border-slate-100">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-slate-500">Age</span>
-                        <span className="text-sm font-medium text-slate-700">{user.age || 'Not set'} years</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-slate-500">Learning Score</span>
-                        <span className="text-sm font-semibold text-brand-600">{user.learningScore || 0} pts</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-slate-500">Modules Completed</span>
-                        <span className="text-sm font-semibold text-green-600">{user.modulesCompleted || 0}/10</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-slate-500">Condition</span>
-                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                          user.userType === 'deaf' ? 'bg-purple-100 text-purple-700' :
-                          user.userType === 'dumb' ? 'bg-blue-100 text-blue-700' :
-                          user.userType === 'visionLoss' ? 'bg-amber-100 text-amber-700' :
-                          'bg-slate-100 text-slate-600'
-                        }`}>
-                          {user.userType === 'deaf' ? '👂 Deaf' :
-                           user.userType === 'dumb' ? '🗣️ Speech Impaired' :
-                           user.userType === 'visionLoss' ? '👁️ Vision Loss' :
-                           'Not specified'}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Logout Button */}
-                    <div className="px-2 pt-1">
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-3 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors border-none bg-transparent cursor-pointer font-medium flex items-center gap-2"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                        Logout
-                      </button>
+                      )}
                     </div>
                   </div>
                 )}
