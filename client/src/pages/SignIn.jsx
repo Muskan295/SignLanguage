@@ -5,6 +5,7 @@ function SignIn() {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
+    age: '',
     password: '',
     confirmPassword: '',
     userType: ''
@@ -23,8 +24,12 @@ function SignIn() {
     setError('')
     setSuccess('')
     
-    if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
+    if (!formData.fullName || !formData.email || !formData.age || !formData.password || !formData.confirmPassword) {
       setError('Please fill in all fields')
+      return
+    }
+    if (isNaN(formData.age) || formData.age < 5 || formData.age > 120) {
+      setError('Please enter a valid age')
       return
     }
     if (!formData.userType) {
@@ -53,8 +58,11 @@ function SignIn() {
       id: Date.now(),
       fullName: formData.fullName,
       email: formData.email,
+      age: parseInt(formData.age),
       password: formData.password, // In real app, this should be hashed
       userType: formData.userType,
+      learningScore: 0,
+      modulesCompleted: 0,
       createdAt: new Date().toISOString()
     }
 
@@ -130,6 +138,21 @@ function SignIn() {
               value={formData.email}
               onChange={handleChange}
               placeholder="you@example.com"
+              className="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+            />
+          </div>
+
+          {/* Age */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-900 mb-2">Age</label>
+            <input
+              type="number"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              placeholder="25"
+              min="5"
+              max="120"
               className="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
             />
           </div>

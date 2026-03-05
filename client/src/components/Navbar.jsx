@@ -38,10 +38,10 @@ function Navbar() {
   const navLink = (path, label) => (
     <Link
       to={path}
-      className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg no-underline ${
+      className={`relative px-4 py-2 text-base font-medium transition-all duration-200 no-underline ${
         isActive(path)
-          ? 'text-brand-600 bg-brand-50'
-          : 'text-slate-600 hover:text-brand-600 hover:bg-slate-50'
+          ? 'text-brand-600'
+          : 'text-slate-600 hover:text-brand-600'
       }`}
     >
       {label}
@@ -49,20 +49,12 @@ function Navbar() {
   )
 
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
+    <nav className="bg-white sticky top-0 z-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 no-underline group">
-            <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
-              </svg>
-            </div>
-            <div>
-              <span className="text-slate-900 font-bold text-lg tracking-tight">SignLingo</span>
-              <span className="hidden sm:block text-xs text-slate-400 font-medium -mt-1">Learn Sign Language</span>
-            </div>
+          <Link to="/" className="flex items-center no-underline group">
+            <span className="text-slate-800 font-bold text-2xl">SignSetu</span>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -71,29 +63,25 @@ function Navbar() {
             {navLink('/alphabet', 'Alphabet')}
             {navLink('/words', 'Words')}
             {navLink('/quiz', 'Quiz')}
+            {navLink('/modules', 'Modules')}
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center space-x-3">
-            <div className="hidden sm:flex items-center space-x-2 bg-brand-50 text-brand-700 px-3 py-1.5 rounded-full text-xs font-semibold">
-              <span className="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
-              <span>Online</span>
-            </div>
-
+          <div className="flex items-center space-x-2">
             {/* Auth Section */}
             {user ? (
               // Logged in - show user dropdown
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 text-white hover:shadow-md transition-shadow border-none cursor-pointer font-semibold text-sm"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500 text-white hover:bg-brand-600 transition-colors border-none cursor-pointer font-medium text-sm"
                 >
                   <div className="w-6 h-6 bg-white text-brand-600 rounded-full flex items-center justify-center text-xs font-bold">
                     {getInitials(user.name)}
                   </div>
                   <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
                   <svg className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
@@ -112,27 +100,21 @@ function Navbar() {
                         </div>
                       )}
                     </div>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer font-medium"
-                    >
-                      Logout
-                    </button>
                   </div>
                 )}
               </div>
             ) : (
               // Not logged in - show login/signin buttons
-              <div className="hidden sm:flex items-center space-x-2">
+              <div className="hidden sm:flex items-center space-x-1">
                 <Link
                   to="/login"
-                  className="px-4 py-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 no-underline"
+                  className="px-5 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 no-underline border border-slate-200 rounded-full hover:border-brand-300 transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signin"
-                  className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-sm font-semibold hover:shadow-md transition-shadow no-underline"
+                  className="px-5 py-2 rounded-full bg-brand-500 text-white text-sm font-medium hover:bg-brand-600 transition-colors no-underline"
                 >
                   Sign Up
                 </Link>
@@ -158,7 +140,7 @@ function Navbar() {
         {/* Mobile Menu */}
         {mobileOpen && (
           <div className="md:hidden pb-4 pt-2 space-y-1 border-t border-slate-100 mt-2">
-            {[['/', 'Home'], ['/alphabet', 'Alphabet'], ['/words', 'Words'], ['/quiz', 'Quiz']].map(([path, label]) => (
+            {[['/', 'Home'], ['/alphabet', 'Alphabet'], ['/words', 'Words'], ['/quiz', 'Quiz'], ['/modules', 'Modules']].map(([path, label]) => (
               <Link
                 key={path}
                 to={path}

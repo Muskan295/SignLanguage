@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fcd5b8"/>
+      <stop offset="100%" style="stop-color:#e8b896"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="20" fill="#f0f4ff"/>
+  <!-- L shape - index up, thumb out (Letter L) -->
+  <g transform="translate(45, 20)">
+    <!-- Palm -->
+    <ellipse cx="50" cy="95" rx="35" ry="38" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <!-- Index finger up -->
+    <rect x="35" y="15" width="15" height="65" rx="7" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <!-- Thumb pointing right -->
+    <rect x="55" y="65" width="50" height="14" rx="7" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <!-- Curled other fingers -->
+    <ellipse cx="55" cy="105" rx="20" ry="15" fill="url(#skin)" stroke="#d4a574" stroke-width="1"/>
+    <!-- Knuckle line -->
+    <path d="M45 80 Q60 78 75 82" fill="none" stroke="#d4a574" stroke-width="1"/>
+  </g>
+  <text x="100" y="180" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#6b8dd9" text-anchor="middle">L</text>
+</svg>

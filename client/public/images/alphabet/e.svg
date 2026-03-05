@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fcd5b8"/>
+      <stop offset="100%" style="stop-color:#e8b896"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="20" fill="#f0f4ff"/>
+  <!-- Fingers curled, thumb tucked under (Letter E) -->
+  <g transform="translate(45, 25)">
+    <!-- Palm -->
+    <ellipse cx="55" cy="90" rx="40" ry="45" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <!-- Curled fingers at top -->
+    <path d="M25 55 Q25 40 40 40 Q55 40 55 55" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <path d="M40 50 Q40 35 55 35 Q70 35 70 50" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <path d="M55 50 Q55 35 70 35 Q85 35 85 50" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <path d="M70 55 Q70 45 80 45 Q90 45 90 60" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <!-- Thumb tucked -->
+    <ellipse cx="35" cy="100" rx="15" ry="10" fill="url(#skin)" stroke="#d4a574" stroke-width="2"/>
+    <!-- Knuckle lines -->
+    <path d="M30 60 Q55 55 80 60" fill="none" stroke="#d4a574" stroke-width="1.5"/>
+  </g>
+  <text x="100" y="180" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#6b8dd9" text-anchor="middle">E</text>
+</svg>

@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Button from '../components/Button'
-import AlphabetCard from '../components/AlphabetCard'
-import WordCard from '../components/WordCard'
-import QuizCard from '../components/QuizCard'
-import { alphabetData } from '../data/alphabet'
-import { wordsData } from '../data/words'
 
 function Home() {
   const [user, setUser] = useState(null)
@@ -24,7 +18,7 @@ function Home() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       {/* Hero Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Welcome Card */}
@@ -78,72 +72,109 @@ function Home() {
           </div>
         </div>
 
-        {/* Right Column */}
-        <div className="lg:col-span-8 space-y-6">
-          {/* Alphabet + Quiz Row */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Alphabet Preview */}
-            <div className="lg:col-span-7">
-              <div className="bg-white rounded-2xl shadow-card overflow-hidden border border-slate-100">
-                <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-                  <div>
-                    <h2 className="font-bold text-slate-900 text-lg">Learn the Alphabet</h2>
-                    <p className="text-xs text-slate-400 mt-0.5">A - Z in sign language</p>
-                  </div>
-                  <Link to="/alphabet" className="text-brand-600 text-sm font-medium hover:text-brand-700 no-underline flex items-center gap-1">
-                    View all
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-                  </Link>
-                </div>
-                <div className="p-5 bg-slate-50/50">
-                  <div className="grid grid-cols-3 gap-3">
-                    {alphabetData.slice(0, 3).map((item) => (
-                      <AlphabetCard key={item.letter} letter={item.letter} image={item.image} />
-                    ))}
-                  </div>
-                </div>
+        {/* Right Side - Image Cards */}
+        <div className="flex-[1.2] flex flex-col items-center gap-2 relative">
+          {/* Top Card - Thank You */}
+          <div className="bg-gradient-to-br from-brand-50 to-brand-100/50 rounded-3xl p-2 shadow-lg transform rotate-2 hover:rotate-0 transition-transform">
+            <img 
+              src="/images/thankyou-hands.png" 
+              alt="Thank You in sign language" 
+              className="w-80 lg:w-[400px] h-36 lg:h-44 object-contain"
+            />
+          </div>
+          
+          {/* Bottom Card - Alphabet & Friend */}
+          <div className="bg-gradient-to-br from-brand-50 to-brand-100/50 rounded-3xl p-2 shadow-lg transform -rotate-1 hover:rotate-0 transition-transform">
+            <img 
+              src="/images/alphabet-hands.png" 
+              alt="Alphabet signs" 
+              className="w-96 lg:w-[450px] h-40 lg:h-52 object-contain"
+            />
+          </div>
+          
+          {/* Decorative stars */}
+          <div className="absolute -top-4 right-0 text-brand-400 text-lg">✦</div>
+          <div className="absolute top-1/2 -right-4 text-brand-300 text-xl">✦</div>
+          <div className="absolute -bottom-2 right-10 text-brand-400 text-sm">✦</div>
+        </div>
+      </div>
+
+      {/* Feature Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Learn the Alphabet Card */}
+        <Link
+          to="/alphabet"
+          className="group bg-white rounded-2xl border-2 border-brand-200 p-6 hover:shadow-xl hover:border-brand-400 transition-all duration-300 no-underline text-center"
+        >
+          <div className="w-28 h-28 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+            <img 
+              src="/images/alphabet-icon.png" 
+              alt="Learn Alphabet" 
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <h3 className="text-lg font-bold text-slate-800 mb-2">Learn the Alphabet</h3>
+          <p className="text-slate-500 text-sm">Practice A-Z signs</p>
+        </Link>
+
+        {/* Practice Words Card */}
+        <Link
+          to="/words"
+          className="group bg-white rounded-2xl border-2 border-brand-200 p-6 hover:shadow-xl hover:border-brand-400 transition-all duration-300 no-underline text-center"
+        >
+          <div className="w-28 h-28 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+            <img 
+              src="/images/words-icon.png" 
+              alt="Practice Words" 
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <h3 className="text-lg font-bold text-slate-800 mb-2">Practice Words</h3>
+          <p className="text-slate-500 text-sm">Learn common signs</p>
+        </Link>
+
+        {/* Take a Quiz Card */}
+        <Link
+          to="/quiz"
+          className="group bg-white rounded-2xl border-2 border-brand-200 p-6 hover:shadow-xl hover:border-brand-400 transition-all duration-300 no-underline text-center"
+        >
+          <div className="w-36 h-36 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+            <img 
+              src="/images/quiz-icon.png" 
+              alt="Take a Quiz" 
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <h3 className="text-lg font-bold text-slate-800 mb-2">Take a Quiz</h3>
+          <p className="text-slate-500 text-sm">Test your knowledge</p>
+        </Link>
+      </div>
+
+      {/* Continue Where You Left Off */}
+      <div className="bg-white rounded-2xl border border-slate-100 p-6">
+        <h2 className="text-xl font-bold text-slate-800 mb-4">Continue where you left off</h2>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex-1 w-full">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-slate-600 text-sm font-medium">Lesson 2 of 5</span>
+              <div className="flex gap-1">
+                <div className="w-2 h-2 rounded-full bg-brand-500"></div>
+                <div className="w-2 h-2 rounded-full bg-brand-500"></div>
+                <div className="w-2 h-2 rounded-full bg-brand-200"></div>
+                <div className="w-2 h-2 rounded-full bg-slate-200"></div>
+                <div className="w-2 h-2 rounded-full bg-slate-200"></div>
               </div>
             </div>
-
-            {/* Quiz Preview */}
-            <div className="lg:col-span-5">
-              <div className="bg-white rounded-2xl shadow-card overflow-hidden border border-slate-100">
-                <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-                  <div>
-                    <h2 className="font-bold text-slate-900 text-base">Quick Quiz</h2>
-                    <p className="text-xs text-slate-400 mt-0.5">Test yourself</p>
-                  </div>
-                  <Link to="/quiz" className="text-brand-600 text-xs font-medium hover:text-brand-700 no-underline">
-                    Full quiz →
-                  </Link>
-                </div>
-                <div className="p-3">
-                  <QuizCard compact={true} />
-                </div>
-              </div>
+            <div className="w-full bg-slate-100 rounded-full h-2">
+              <div className="bg-gradient-to-r from-brand-400 to-brand-500 h-2 rounded-full" style={{ width: '40%' }}></div>
             </div>
           </div>
-
-          {/* Common Words */}
-          <div className="bg-white rounded-2xl shadow-card overflow-hidden border border-slate-100">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-              <div>
-                <h2 className="font-bold text-slate-900 text-lg">Common Words</h2>
-                <p className="text-xs text-slate-400 mt-0.5">Essential phrases to get started</p>
-              </div>
-              <Link to="/words" className="text-brand-600 text-sm font-medium hover:text-brand-700 no-underline flex items-center gap-1">
-                View all
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-              </Link>
-            </div>
-            <div className="p-5 bg-slate-50/50">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                {wordsData.slice(0, 6).map((item) => (
-                  <WordCard key={item.word} word={item.word} image={item.image} />
-                ))}
-              </div>
-            </div>
-          </div>
+          <Link
+            to="/alphabet"
+            className="inline-flex items-center px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 no-underline whitespace-nowrap"
+          >
+            Resume Learning
+          </Link>
         </div>
       </div>
     </div>
