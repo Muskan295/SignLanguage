@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { quizData } from '../data/quiz'
 
-function QuizCard({ compact = false }) {
+function QuizCard({ compact = false,quizData=[] }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
   const [selectedOption, setSelectedOption] = useState(null)
   const [showResult, setShowResult] = useState(false)
-
+  if (!quizData || quizData.length === 0) {
+  return <div className="text-center py-8 text-slate-400">Loading quiz...</div>
+  }
   const question = quizData[currentQuestion]
 
   const handleOptionClick = (option) => {

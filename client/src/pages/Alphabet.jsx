@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AlphabetCard from '../components/AlphabetCard'
-import { alphabetData } from '../data/alphabet'
+import {useState,useEffect} from 'react'
 
 function Alphabet() {
   const [search, setSearch] = useState('')
-
+  const [alphabetData, setAlphabetData] = useState([]);
+  useEffect(()=>{
+    fetch('/api/alphabet').then(res=>res.json()).then(data=>setAlphabetData(data));
+  },[])
   const filtered = alphabetData.filter(item =>
     item.letter.toLowerCase().includes(search.toLowerCase())
   )

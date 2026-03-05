@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+
 function SignIn() {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -45,39 +46,29 @@ function SignIn() {
       return
     }
 
-    // Check if user already exists
-    const accounts = JSON.parse(localStorage.getItem('accounts') || '[]')
-    const existingAccount = accounts.find(acc => acc.email === formData.email)
-    if (existingAccount) {
-      setError('Email already registered. Please sign in instead.')
-      return
-    }
-
-    // Create new account
-    const newAccount = {
-      id: Date.now(),
-      fullName: formData.fullName,
-      email: formData.email,
-      age: parseInt(formData.age),
-      password: formData.password, // In real app, this should be hashed
-      userType: formData.userType,
-      learningScore: 0,
-      modulesCompleted: 0,
-      createdAt: new Date().toISOString()
-    }
-
-    // Save to accounts list
-    accounts.push(newAccount)
-    localStorage.setItem('accounts', JSON.stringify(accounts))
-
-    // Show success message
-    setSuccess('Account created successfully! Redirecting to sign in...')
-    console.log('Account created:', formData)
-    
-    // Redirect to login page after 2 seconds
-    setTimeout(() => {
-      navigate('/login')
-    }, 2000)
+    fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fullName: formData.fullName,
+        email: formData.email,
+        age: parseInt(formData.age),
+        password: formData.password,
+        userType: formData.userType
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          setError(data.error)
+          return
+        }
+        setSuccess('Account created successfully! Redirecting to sign in...')
+        setTimeout(() => {
+          navigate('/login')
+        }, 2000)
+      })
+      .catch(() => setError('Server error. Please try again.'))
   }
 
   return (

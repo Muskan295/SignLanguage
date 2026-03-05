@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
+import {useState,useEffect} from 'react';
 import WordCard from '../components/WordCard'
-import { wordsData } from '../data/words'
+
 
 function Words() {
   const [search, setSearch] = useState('')
-
+    const [wordsData,setWordsData]=useState([]);
+  useEffect(()=>{
+    fetch('/api/words').then(res=>res.json()).then(data=>setWordsData(data))
+  },[])
   const filtered = wordsData.filter(item =>
     item.word.toLowerCase().includes(search.toLowerCase())
   )

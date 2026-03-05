@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import QuizCard from '../components/QuizCard'
+import {useState,useEffect} from 'react';
+import QuizCard from '../components/QuizCard';
 
 function Quiz() {
+  const [quizData,setQuizData]=useState([]);
+  useEffect(()=>{
+    fetch('/api/quiz').then(res=>res.json()).then(data=>setQuizData(data));
+  },[]);
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      {/* Header */}
       <div className="bg-white rounded-2xl shadow-card border border-slate-100 p-6">
         <div className="flex items-center justify-between">
           <div>
@@ -23,7 +28,7 @@ function Quiz() {
 
       {/* Quiz Card */}
       <div className="bg-white rounded-2xl shadow-card border border-slate-100 p-6">
-        <QuizCard compact={false} />
+        <QuizCard compact={false} quizData={quizData}/>
       </div>
 
       {/* Tip */}

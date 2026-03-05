@@ -21,40 +21,22 @@ function Login() {
       setError('Please fill in all fields')
       return
     }
-
-    // Get all registered accounts
-    const accounts = JSON.parse(localStorage.getItem('accounts') || '[]')
-    
-    // Find user account
-    const account = accounts.find(acc => acc.email === formData.email)
-    
-    if (!account) {
-      setError('Email not registered. Please create an account first.')
+    fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: formData.email, password: formData.password })
+})
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      setError(data.error)
       return
     }
-
-    // Verify password
-    if (account.password !== formData.password) {
-      setError('Incorrect password. Please try again.')
-      return
-    }
-
-    // Login successful - store user session
-    const userData = {
-      id: account.id,
-      email: account.email,
-      name: account.fullName,
-      age: account.age || 0,
-      userType: account.userType,
-      learningScore: account.learningScore || 0,
-      modulesCompleted: account.modulesCompleted || 0,
-      isLoggedIn: true,
-      loginTime: new Date().toISOString()
-    }
-    localStorage.setItem('user', JSON.stringify(userData))
-    console.log('Login successful:', formData)
+    localStorage.setItem('user', JSON.stringify(data.user))
     navigate('/')
-    window.location.reload() // Refresh to update navbar
+    window.location.reload()
+  })
+  .catch(() => setError('Server error. Please try again.'))
   }
 
   const handleChangePasswordClick = () => {
@@ -94,32 +76,29 @@ function Login() {
       return
     }
 
-    // Get all accounts
-    const accounts = JSON.parse(localStorage.getItem('accounts') || '[]')
-    const accountIndex = accounts.findIndex(acc => acc.email === changePasswordData.email)
-
-    if (accountIndex === -1) {
-      setChangePasswordError('Email not found')
-      return
-    }
-
-    // Verify old password
-    if (accounts[accountIndex].password !== changePasswordData.oldPassword) {
-      setChangePasswordError('Old password is incorrect')
-      return
-    }
-
-    // Update password
-    accounts[accountIndex].password = changePasswordData.newPassword
-    localStorage.setItem('accounts', JSON.stringify(accounts))
-
-    setChangePasswordSuccess('Password changed successfully! You can now login with your new password.')
-    setChangePasswordData({ email: '', oldPassword: '', newPassword: '', confirmPassword: '' })
-    
-    setTimeout(() => {
-      setShowChangePassword(false)
-      setChangePasswordSuccess('')
-    }, 3000)
+    fetch('/api/auth/change-password', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: changePasswordData.email,
+        oldPassword: changePasswordData.oldPassword,
+        newPassword: changePasswordData.newPassword
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          setChangePasswordError(data.error)
+          return
+        }
+        setChangePasswordSuccess('Password changed successfully!')
+        setChangePasswordData({ email: '', oldPassword: '', newPassword: '', confirmPassword: '' })
+        setTimeout(() => {
+          setShowChangePassword(false)
+          setChangePasswordSuccess('')
+        }, 3000)
+      })
+      .catch(() => setChangePasswordError('Server error. Please try again.'))
   }
 
   return (

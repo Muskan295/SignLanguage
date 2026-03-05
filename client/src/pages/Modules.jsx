@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
-import { modulesData } from '../data/modules'
-
+import React from 'react'
+import {useState,useEffect} from 'react';
 function Modules() {
   const [selectedLevel, setSelectedLevel] = useState('All')
+  const[modulesData,setModulesData]=useState([]);
+  useEffect(()=>{
+    fetch('/api/modules').then(res=>res.json()).then(data=>setModulesData(data));
+  },[])
 
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
