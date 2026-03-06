@@ -38,23 +38,29 @@ function Navbar() {
   const navLink = (path, label) => (
     <Link
       to={path}
-      className={`relative px-4 py-2 text-base font-medium transition-all duration-200 no-underline ${
+      className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 no-underline rounded-lg ${
         isActive(path)
-          ? 'text-brand-600'
-          : 'text-slate-600 hover:text-brand-600'
+          ? 'text-brand-700 bg-brand-50'
+          : 'text-slate-600 hover:text-brand-700 hover:bg-brand-50/50'
       }`}
     >
       {label}
+      {isActive(path) && (
+        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-brand-600 rounded-full"></span>
+      )}
     </Link>
   )
 
   return (
-    <nav className="bg-white sticky top-0 z-50 border-b border-slate-200">
+    <nav className="glass-strong sticky top-0 z-50 border-b border-slate-200/60 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center no-underline group">
-            <span className="text-slate-800 font-bold text-2xl">SignSetu</span>
+          <Link to="/" className="flex items-center gap-2 no-underline group">
+            <div className="w-9 h-9 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-glow transition-shadow duration-300">
+              <span className="text-white text-lg">🤟</span>
+            </div>
+            <span className="text-slate-800 font-extrabold text-xl tracking-tight">Sign<span className="text-gradient">Setu</span></span>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -74,22 +80,22 @@ function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500 text-white hover:bg-brand-600 transition-colors border-none cursor-pointer font-medium text-sm"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 text-white hover:from-brand-600 hover:to-brand-700 transition-all duration-300 border-none cursor-pointer font-medium text-sm shadow-md hover:shadow-glow"
                 >
-                  <div className="w-6 h-6 bg-white text-brand-600 rounded-full flex items-center justify-center text-xs font-bold">
+                  <div className="w-7 h-7 bg-white/20 backdrop-blur-sm text-white rounded-full flex items-center justify-center text-xs font-bold ring-2 ring-white/30">
                     {getInitials(user.fullName)}
                   </div>
                   <span className="hidden sm:inline">{user.fullName.split(' ')[0]}</span>
-                  <svg className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className={`w-4 h-4 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
                 {/* Dropdown Menu */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
+                  <div className="absolute right-0 mt-2 w-56 glass-strong rounded-xl shadow-lg border border-slate-200/60 py-1 z-50 animate-slide-down">
                     <div className="px-4 py-3 border-b border-slate-100">
-                      <p className="text-sm font-semibold text-slate-900">{user.name}</p>
+                      <p className="text-sm font-semibold text-slate-900">{user.fullName}</p>
                       <p className="text-xs text-slate-500">{user.email}</p>
                       {user.userType && (
                         <div className="mt-2 inline-flex items-center gap-1.5 bg-brand-50 text-brand-700 text-xs font-medium px-2.5 py-1 rounded-full">
@@ -105,16 +111,16 @@ function Navbar() {
               </div>
             ) : (
               // Not logged in - show login/signin buttons
-              <div className="hidden sm:flex items-center space-x-1">
+              <div className="hidden sm:flex items-center space-x-2">
                 <Link
                   to="/login"
-                  className="px-5 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 no-underline border border-slate-200 rounded-full hover:border-brand-300 transition-colors"
+                  className="px-5 py-2 text-sm font-medium text-slate-600 hover:text-brand-700 no-underline border border-slate-200 rounded-full hover:border-brand-300 hover:bg-brand-50/50 transition-all duration-200"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signin"
-                  className="px-5 py-2 rounded-full bg-brand-500 text-white text-sm font-medium hover:bg-brand-600 transition-colors no-underline"
+                  className="px-5 py-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 text-white text-sm font-medium hover:from-brand-600 hover:to-brand-700 transition-all duration-300 no-underline shadow-md hover:shadow-glow"
                 >
                   Sign Up
                 </Link>
@@ -139,7 +145,7 @@ function Navbar() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="md:hidden pb-4 pt-2 space-y-1 border-t border-slate-100 mt-2">
+          <div className="md:hidden pb-4 pt-2 space-y-1 border-t border-slate-100 mt-2 animate-slide-down">
             {[['/', 'Home'], ['/alphabet', 'Alphabet'], ['/words', 'Words'], ['/quiz', 'Quiz'], ['/modules', 'Modules']].map(([path, label]) => (
               <Link
                 key={path}
