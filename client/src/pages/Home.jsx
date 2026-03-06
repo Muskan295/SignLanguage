@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Button from '../components/Button'
 
 function Home() {
   const [user, setUser] = useState(null)
@@ -33,7 +34,7 @@ function Home() {
                 {user ? (
                   <>
                     Welcome back,<br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">{user.name.split(' ')[0]}!</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">{(user.fullName || user.name || '').split(' ')[0]}!</span>
                   </>
                 ) : (
                   <>
