@@ -1,0 +1,45 @@
+<svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <!-- Rainbow arc background -->
+  <g transform="translate(250, 160)">
+    <!-- Outer teal arc -->
+    <path d="M -110 30 A 120 120 0 0 1 110 30" fill="none" stroke="#80d4d4" stroke-width="14" stroke-linecap="round" opacity="0.8"/>
+    
+    <!-- Middle blue arc -->
+    <path d="M -90 45 A 100 100 0 0 1 90 45" fill="none" stroke="#a4c1f7" stroke-width="14" stroke-linecap="round" opacity="0.8"/>
+    
+    <!-- Inner blue arc -->
+    <path d="M -70 60 A 80 80 0 0 1 70 60" fill="none" stroke="#6b8dd9" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- Purple accent left -->
+    <path d="M -120 15 A 130 130 0 0 1 -60 -70" fill="none" stroke="#d4a5ff" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+    
+    <!-- Green accent right -->
+    <path d="M 60 -70 A 130 130 0 0 1 120 15" fill="none" stroke="#80d4cc" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <!-- Hand gesture (OK sign) -->
+  <g transform="translate(250, 85)">
+    <!-- OK circle (thumb and index finger) -->
+    <circle cx="0" cy="0" r="28" stroke="#6b8dd9" stroke-width="14" fill="none" stroke-linecap="round"/>
+    
+    <!-- Middle finger pointing up -->
+    <path d="M 8 -22 Q 10 -60 12 -100" stroke="#6b8dd9" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Index finger pointing up (separated) -->
+    <path d="M -20 -18 Q -22 -55 -25 -95" stroke="#6b8dd9" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Ring finger -->
+    <path d="M 30 5 Q 45 -15 55 -45" stroke="#6b8dd9" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Pinky finger -->
+    <path d="M 40 20 Q 55 10 70 -10" stroke="#6b8dd9" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Wrist/palm -->
+    <ellipse cx="15" cy="40" rx="32" ry="28" fill="#6b8dd9"/>
+  </g>
+
+  <!-- SignSetu Text -->
+  <text x="250" y="330" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="72" font-weight="700" fill="#5a7bc4" text-anchor="middle" letter-spacing="-0.5">
+    SignSetu
+  </text>
+</svg>
