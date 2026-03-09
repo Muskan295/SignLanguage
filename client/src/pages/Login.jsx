@@ -102,7 +102,7 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-50 to-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
       <div className="w-full max-w-md space-y-8">
         {showChangePassword ? (
           <>
@@ -120,7 +120,7 @@ function Login() {
             </div>
 
             {/* Change Password Form */}
-            <form onSubmit={handleChangePasswordSubmit} className="bg-white rounded-2xl shadow-card p-8 space-y-6 border border-slate-100">
+            <form onSubmit={handleChangePasswordSubmit} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-card p-8 space-y-6 border border-slate-100/80">
               {changePasswordError && (
                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                   {changePasswordError}
@@ -189,7 +189,7 @@ function Login() {
               <div className="flex gap-3 pt-2">
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-brand-500 to-brand-700 text-white font-semibold py-2.5 rounded-lg hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400"
+                  className="flex-1 bg-gradient-to-r from-brand-500 to-brand-600 text-white font-semibold py-3 rounded-xl hover:shadow-glow transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-400 hover:-translate-y-0.5 active:scale-[0.98] border-none cursor-pointer"
                 >
                   Update Password
                 </button>
@@ -229,7 +229,7 @@ function Login() {
             </div>
 
             {/* Login Form */}
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-card p-8 space-y-6 border border-slate-100">
+            <form onSubmit={handleSubmit} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-card p-8 space-y-6 border border-slate-100/80">
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                   {error}
@@ -293,7 +293,7 @@ function Login() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-brand-500 to-brand-700 text-white font-semibold py-2.5 rounded-lg hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400"
+                className="w-full bg-gradient-to-r from-brand-500 to-brand-600 text-white font-semibold py-3 rounded-xl hover:shadow-glow transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-400 hover:-translate-y-0.5 active:scale-[0.98] border-none cursor-pointer"
               >
                 Sign In
               </button>

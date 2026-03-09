@@ -72,7 +72,7 @@ function SignIn() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-50 to-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
       <div className="w-full max-w-md space-y-8">
         {/* Header */}
         <div className="text-center">
@@ -88,7 +88,7 @@ function SignIn() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-card p-8 space-y-6 border border-slate-100">
+        <form onSubmit={handleSubmit} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-card p-8 space-y-6 border border-slate-100/80">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-start gap-2">
               <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -152,7 +152,7 @@ function SignIn() {
           <div>
             <label className="block text-sm font-semibold text-slate-900 mb-3">I am:</label>
             <div className="space-y-2">
-              <label className="flex items-center p-3 border-2 border-slate-300 rounded-xl cursor-pointer hover:border-brand-500 hover:bg-brand-50 transition-all bg-brand-50/30" style={{borderColor: formData.userType === 'deaf' ? '#3b82f6' : '#cbd5e1', backgroundColor: formData.userType === 'deaf' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(226, 232, 240, 0.3)'}}>
+              <label className="flex items-center p-3 border-2 border-slate-300 rounded-xl cursor-pointer hover:border-brand-500 hover:bg-brand-50 transition-all bg-brand-50/30" style={{borderColor: formData.userType === 'deaf' ? '#10b981' : '#cbd5e1', backgroundColor: formData.userType === 'deaf' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(226, 232, 240, 0.3)'}}>
                 <input
                   type="radio"
                   name="userType"
@@ -167,7 +167,7 @@ function SignIn() {
                 </div>
               </label>
 
-              <label className="flex items-center p-3 border-2 border-slate-300 rounded-xl cursor-pointer hover:border-brand-500 hover:bg-brand-50 transition-all bg-brand-50/30" style={{borderColor: formData.userType === 'dumb' ? '#3b82f6' : '#cbd5e1', backgroundColor: formData.userType === 'dumb' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(226, 232, 240, 0.3)'}}>
+              <label className="flex items-center p-3 border-2 border-slate-300 rounded-xl cursor-pointer hover:border-brand-500 hover:bg-brand-50 transition-all bg-brand-50/30" style={{borderColor: formData.userType === 'dumb' ? '#10b981' : '#cbd5e1', backgroundColor: formData.userType === 'dumb' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(226, 232, 240, 0.3)'}}>
                 <input
                   type="radio"
                   name="userType"
@@ -182,7 +182,7 @@ function SignIn() {
                 </div>
               </label>
 
-              <label className="flex items-center p-3 border-2 border-slate-300 rounded-xl cursor-pointer hover:border-brand-500 hover:bg-brand-50 transition-all bg-brand-50/30" style={{borderColor: formData.userType === 'visionLoss' ? '#3b82f6' : '#cbd5e1', backgroundColor: formData.userType === 'visionLoss' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(226, 232, 240, 0.3)'}}>
+              <label className="flex items-center p-3 border-2 border-slate-300 rounded-xl cursor-pointer hover:border-brand-500 hover:bg-brand-50 transition-all bg-brand-50/30" style={{borderColor: formData.userType === 'visionLoss' ? '#10b981' : '#cbd5e1', backgroundColor: formData.userType === 'visionLoss' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(226, 232, 240, 0.3)'}}>
                 <input
                   type="radio"
                   name="userType"
@@ -243,7 +243,7 @@ function SignIn() {
           <button
             type="submit"
             disabled={success}
-            className="w-full bg-gradient-to-r from-brand-500 to-brand-700 text-white font-semibold py-2.5 rounded-lg hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-brand-500 to-brand-600 text-white font-semibold py-3 rounded-xl hover:shadow-glow transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-400 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5 active:scale-[0.98] border-none cursor-pointer"
           >
             {success ? 'Redirecting...' : 'Create Account'}
           </button>

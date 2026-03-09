@@ -23,12 +23,15 @@ function Modules() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-card border border-slate-100 p-6">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-card border border-slate-100/80 p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Learning Modules</h1>
+            <div className="inline-flex items-center gap-2 bg-brand-50 text-brand-700 px-3 py-1 rounded-full text-xs font-semibold mb-2">
+              📚 Structured Learning
+            </div>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Learning <span className="text-gradient">Modules</span></h1>
             <p className="text-slate-500 text-sm mt-1">Complete structured lessons to master sign language</p>
           </div>
           {/* Level Filter */}
@@ -37,9 +40,9 @@ function Modules() {
               <button
                 key={level}
                 onClick={() => setSelectedLevel(level)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border-none cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 border-none cursor-pointer ${
                   selectedLevel === level
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-md'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
@@ -51,44 +54,38 @@ function Modules() {
       </div>
 
       {/* Progress Overview */}
-      <div className="bg-gradient-to-r from-brand-500 to-brand-600 rounded-2xl p-6 text-white">
+      <div className="bg-gradient-to-r from-brand-500 via-brand-600 to-emerald-600 rounded-2xl p-6 text-white shadow-glow-lg">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h2 className="text-lg font-semibold">Your Progress</h2>
-            <p className="text-brand-100 text-sm mt-1">Keep learning to unlock new modules!</p>
+            <h2 className="text-lg font-bold">Your Progress</h2>
+            <p className="text-white/70 text-sm mt-1">Keep learning to unlock new modules!</p>
           </div>
           <div className="flex gap-6">
-            <div className="text-center">
-              <p className="text-3xl font-bold">0</p>
-              <p className="text-brand-100 text-xs">Completed</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-bold">10</p>
-              <p className="text-brand-100 text-xs">Total</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-bold">0%</p>
-              <p className="text-brand-100 text-xs">Progress</p>
-            </div>
+            {[{ val: '0', label: 'Completed' }, { val: '10', label: 'Total' }, { val: '0%', label: 'Progress' }].map(stat => (
+              <div key={stat.label} className="text-center bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2">
+                <p className="text-2xl font-bold">{stat.val}</p>
+                <p className="text-white/70 text-xs">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
         {/* Progress Bar */}
-        <div className="mt-4 bg-brand-400/30 rounded-full h-2">
-          <div className="bg-white rounded-full h-2 w-0 transition-all duration-500"></div>
+        <div className="mt-4 bg-white/20 rounded-full h-2.5">
+          <div className="bg-white rounded-full h-2.5 w-0 transition-all duration-500"></div>
         </div>
       </div>
 
       {/* Modules Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {filteredModules.map((module) => (
           <div 
             key={module.id}
-            className="bg-white rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover hover:border-brand-200 transition-all duration-300 overflow-hidden group cursor-pointer"
+            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-card border border-slate-100/80 hover:shadow-card-hover hover:border-brand-200 hover:-translate-y-1 transition-all duration-500 overflow-hidden group cursor-pointer"
           >
             <div className="p-6">
               <div className="flex items-start gap-4">
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${module.color} flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition-transform`}>
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${module.color} flex items-center justify-center text-2xl shadow-md group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}>
                   {module.icon}
                 </div>
                 {/* Content */}
@@ -124,8 +121,8 @@ function Modules() {
                     {module.duration}
                   </span>
                 </div>
-                <button className="px-4 py-2 bg-brand-50 text-brand-600 rounded-lg text-sm font-semibold hover:bg-brand-100 transition-colors border-none cursor-pointer">
-                  Start
+                <button className="px-4 py-2 bg-brand-50 text-brand-600 rounded-xl text-sm font-semibold hover:bg-brand-100 hover:shadow-md transition-all duration-300 border-none cursor-pointer group-hover:bg-brand-600 group-hover:text-white">
+                  Start →
                 </button>
               </div>
             </div>
@@ -134,8 +131,10 @@ function Modules() {
       </div>
 
       {filteredModules.length === 0 && (
-        <div className="bg-white rounded-2xl shadow-card border border-slate-100 p-12 text-center">
-          <p className="text-slate-400 text-lg">No modules found for this level</p>
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-card border border-slate-100/80 p-12 text-center">
+          <p className="text-4xl mb-3">📭</p>
+          <p className="text-slate-500 text-lg font-medium">No modules found for this level</p>
+          <p className="text-slate-400 text-sm mt-1">Try selecting a different filter</p>
         </div>
       )}
     </div>
