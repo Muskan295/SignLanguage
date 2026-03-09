@@ -12,6 +12,7 @@ app.use('/api/modules',require('./routes/moduleRoutes'));
 app.use('/api/auth',require('./routes/authRoutes'));
 
 app.use(express.static(path.join(__dirname,'..','client','dist')));
+app.use(express.static(path.join(__dirname,'..','client','public')));
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname,'..','client','dist','index.html'));
 });
