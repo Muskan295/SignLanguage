@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50 bg-mesh">
       <Navbar />
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/alphabet" element={<Alphabet />} />
