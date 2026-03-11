@@ -1,7 +1,10 @@
 const express=require('express');
 const router=express.Router();
-const {signup,login,changePassword}=require('../controllers/authController');
+const {signup,login,changePassword,getProfile,updateProfile,deleteAccount}=require('../controllers/authController');
 router.post('/signup',signup);
 router.post('/login',login);
 router.put('/change-password',changePassword);
+router.get('/profile/:email',getProfile);
+router.put('/profile/:email',updateProfile);
+router.delete('/profile/:email',deleteAccount);
 module.exports=router;

@@ -37,13 +37,16 @@ function Navbar() {
   const navLink = (path, label) => (
     <Link
       to={path}
-      className={`relative px-3 py-1.5 text-sm font-medium transition-all duration-200 no-underline rounded-lg ${
+      className={`relative px-3 py-2 text-[15px] font-semibold transition-all duration-200 no-underline rounded-lg ${
         isActive(path)
           ? 'text-brand-700 bg-brand-50'
-          : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'
+          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
       }`}
     >
       {label}
+      {isActive(path) && (
+        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-brand-600 rounded-full"></span>
+      )}
     </Link>
   )
 
@@ -99,11 +102,28 @@ function Navbar() {
                         </span>
                       )}
                     </div>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer font-medium"
+                    <Link
+                      to="/login"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors no-underline"
                     >
-                      Sign out
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      Manage Account
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setDropdownOpen(false)
+                        handleLogout()
+                      }}
+                      className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      Logout
                     </button>
                   </div>
                 )}
@@ -169,9 +189,24 @@ function Navbar() {
               </>
             )}
             {user && (
-              <button onClick={() => { handleLogout(); setMobileOpen(false) }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer">
-                Sign out
-              </button>
+              <>
+                <Link
+                  to="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 rounded-lg text-sm font-medium text-brand-600 hover:bg-brand-50 transition-colors no-underline"
+                >
+                  Manage Account
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout()
+                    setMobileOpen(false)
+                  }}
+                  className="w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors border-none bg-transparent cursor-pointer"
+                >
+                  Logout
+                </button>
+              </>
             )}
           </div>
         )}
